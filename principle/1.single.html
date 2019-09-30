@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>single patten</title>
+  <style>
+    input, button {
+      display: block;
+      margin: 20px;
+    }
+    
+  </style>
+</head>
+<body>
+  <form action="" id="userform">
+    姓名：<input type="text" name="username" id="username" data-validate="checkUsername">
+    邮箱：<input type="text" name="email" id="email" data-validate="checkEmail">
+    密码：<input type="password" name="password" id="password" data-validate="checkPassword">
+    <button type='button' id='submit' onclick="check()">Submit</button>
+  </form>
+  <script src="./1.single.js"></script>
+</body>
+</html>
