@@ -3,7 +3,7 @@ class Person {
   protected age: number;
   private money: number;
 
-  constructor (name, age, money) {
+  constructor (name: string, age: number, money: number) {
     this.name = name;
     this.age = age;
     this.money = money;
@@ -13,7 +13,7 @@ class Person {
 class Student extends Person {
   public num: number;
 
-  constructor (name, age, money, num) {
+  constructor (name: string, age: number, money: number, num: number) {
     super(name, age, money);
     this.num = num;
   }
