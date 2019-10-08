@@ -5,14 +5,15 @@ function check() {
   let form = document.querySelector("#userform"),
       inputs = form.querySelectorAll("input");
 
-  inputs.forEach(input => {
+  for(let input of inputs) {
     let validate = input.dataset.validate,
         validateFn = window[validate];
     let error = validateFn(input);
     if(error) {
-      alert(error);
+     alert(error);
+     break;
     }
-  })
+  }
 }
 
 function checkUsername ({ value = "" }) {
