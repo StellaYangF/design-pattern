@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Single Instance</title>
+</head>
+<body>
+  <button id="btn-show-login">Show Login Modal</button>
+  <button id="btn-hide-login">Hide Login Modal</button>
+  <script>
+    class Login{
+      constructor() {
+        this.element = document.createElement("div");
+        this.element.innerHTML = (`
+        Username: <input name="username" id="username" data-username="username"/>
+        Password: <input name="password" type="password" id="password data-password="password"/>
+        <button id="submit">Login
+          `);
+        this.element.style.cssText = "box-shadow: 0 0 20px 2px rgba(0,0,0,.1); border-radius: .5rem; width: 210px; position: absolute; top: 50%; left: 50%; margin-top: -100px; margin-left: -105px; padding: 15px; box-sizing: 15px;"
+        document.body.appendChild(this.element);
+      }
+      show() {
+        this.element.style.display = "block";
+      }
+      hide() {
+        this.element.style.display = "none";
+      }
+      static getInstance(){
+        if(!this.instance) {
+          this.instance = new Login();
+        }
+        return this.instance;
+      }
+    }
+    document.querySelector("#btn-show-login").addEventListener("click", () => {
+      Login.getInstance().show();
+    });
+    document.querySelector("#btn-hide-login").addEventListener("click", () => {
+      Login.getInstance().hide();
+    })
+  </script>
+</body>
+</html>
