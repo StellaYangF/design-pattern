@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    li { padding: 5px 10px !important; border: 1px dotted #ccc; border-radius: 5px; margin-bottom: 10px !important; background: lightblue; }
+    li:hover { opacity: .8; }
+  </style>
+</head>
+<body>
+  <ul>
+    <li data-id='1'>use one</li>
+    <li data-id='2'>use two</li>
+  </ul>
+  <div id='content'></div>
+  <script>
+    let lis = document.querySelectorAll('li');
+
+    lis.forEach(li => li.addEventListener("click", getUserByIdBridge));
+
+    function getUserByIdBridge({ target: { dataset: { id }}}) {
+      getUserById(id, user => document.getElementById('content').innerHTML = user.name )
+    }
+
+    function getUserById(id, callback) {
+      let xhr = new XMLHttpRequest;
+      xhr.open("GET", `/user/${id}`, true);
+      xhr.responseType = 'json';
+      xhr.onreadystatechange =function() {
+        let user = xhr.response;
+        if(xhr.readyState == 4 && xhr.status == 200) {
+          // document.getElementById("content").innerHTML = user.name;
+          callback(user);
+        } 
+      };
+      xhr.send();
+    }
+  </script>
+</body>
+</html>
