@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ReactRender</title>
+</head>
+<body>
+  <div id='root'></div>
+  <script>
+    class React{
+      render(element, container) {
+       if (typeof element === "string") return document.appendChild(document.createTextNode(element));
+       let { type, props } = element;
+
+      }
+    }
+
+    class ReactElement {
+      constructor(type, props = [], ...children) {
+        this.type = type;
+        this.props = {...props, children: children.length == 1 ? children[0] : children };
+      }
+    }
+
+    let rootElement = new ReactElement("ul", null, new ReactElement("li", null, "tom"), new ReactElement("li", null, "jerry"));
+
+    React.render(rootElement, root);
+  </script>
+</body>
+</html>

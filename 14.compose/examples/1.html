@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div id="root"></div>
+<script>
+class ReactElement{
+  constructor(type,props){
+    this.type = type;//元素的类型
+    this.props = props;//属性对象
+  }
+}
+function createElement(type,props={},...children){
+   return new ReactElement(type,{...props,children:children.length==1?children[0]:children});
+}
+let rootElement = createElement('span',null,'hello',createElement('span',null,'world',createElement('span',null,'world2')));   
+function render(element,container){
+  if(typeof element == 'string')  return  domElement.appendChild(document.createTextNode(element));
+  let {type,props} = element;
+  let domElement = document.createElement(type);//创建一个真实的DOM节点
+  for(let attr in props){
+      if(attr === 'children'){
+         //children可能是个对象，也可能是个字符串，也可能是个数组
+         if(typeof props[attr] == 'object'){
+            props[attr].forEach(item=>{
+                if(typeof item =='object'){
+                    render(item,domElement);
+                }else{
+                    domElement.appendChild(document.createTextNode(item));
+                }
+            });
+         }else{
+            domElement.appendChild(document.createTextNode(props[attr]));
+         }
+      }else if(attr == 'className'){
+        domElement.setAttribute('class',props[attr]);
+      }else{
+        domElement.setAttribute(attr,props[attr]);// id placeholder name
+      }
+  }
+  container.appendChild(domElement);
+} 
+render('xx',document.querySelector('#root'));
+//ReactDOM.render(<span>hello<span>world</span></span>,document.querySelector('#root'));
+</script>    
+</body>
+</html>

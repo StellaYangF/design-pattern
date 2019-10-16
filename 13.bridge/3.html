@@ -19,16 +19,21 @@
   <script>
     let lis = document.querySelectorAll('li');
 
-    lis.forEach(li => li.addEventListener("click", getUserById));
-    
-    function getUserById({ target: { dataset: { id }}}) {
+    lis.forEach(li => li.addEventListener("click", getUserByIdBridge));
+
+    function getUserByIdBridge({ target: { dataset: { id }}}) {
+      getUserById(id, user => document.getElementById('content').innerHTML = user.name )
+    }
+
+    function getUserById(id, callback) {
       let xhr = new XMLHttpRequest;
-      xhr.open("GET", `/user/${id}`, true);
+      xhr.open("GET", `http:localhost:8080/user/${id}`, true);
       xhr.responseType = 'json';
       xhr.onreadystatechange =function() {
         let user = xhr.response;
         if(xhr.readyState == 4 && xhr.status == 200) {
-          document.getElementById("content").innerHTML = user.name;
+          // document.getElementById("content").innerHTML = user.name;
+          callback(user);
         } 
       };
       xhr.send();
