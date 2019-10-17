@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Pagination</title>
+</head>
+<body>
+  <script>
+    const defaultPageSize = 5;
+    let list = [];
+    for(let i=1;i<=20; i++) {
+      list.push('News ' + i);
+    }
+
+    class List{
+      constructor(list){
+        this.element = document.createElement("ul");
+        this.children = [];
+        this.list = list;
+        this.addChildren();
+      }
+
+      addChildren(pageSize = defaultPageSize) {
+        let li = document.createElement("li");
+        for (let i = 0; i< pageSize; i++) {
+          this.children.push(li);
+        }
+      }
+
+      render() {
+        for(let i = 0; i< this.children.length; i++) {
+          this.children[i].innerHTML = this.list[i];
+          this.element.appendChild(this.children[i]);
+        }
+      }
+    }
+
+    let newsList = new List(list);
+    newsList.render();
+    console.log(newsList);
+    document.body.appendChild(newsList.element);
+
+    class Button{
+      constructor(pageNum = 0, pageSize = defaultPageSize, title){
+        this.element = document.createElement("button");
+        this.element.innerHTML = title
+        this.pageNum = 0;
+        this.pageSize = pageSize;
+        this.start = ( this.pageNum - 1 ) * this.pageSize;
+      }
+      goPrev(){
+        this.pageNum > 1 && this.pageNum--;
+      }
+    }
+  </script>
+</body>
+</html>

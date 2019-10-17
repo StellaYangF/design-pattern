@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Color Selector</title>
 </head>
 <body>
     <input type="radio" value="red" name="color" checked>红色
@@ -21,7 +21,7 @@
               this.element = document.createElement('div');
           }
           setColor(color){
-            this.element.style = `width:100px;height:100px;background-color:${color}`;
+            this.element.style = `width:100px;height:100px;background-color:${color}; margin: 20px auto;`;
           }
       }  
       let myDiv = new MyDiv();

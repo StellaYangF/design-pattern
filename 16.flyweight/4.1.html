@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>Color Selector</title>
 </head>
 <body>
   <input type="radio" name="color" value="#fb9">Default
@@ -22,7 +22,7 @@
         this.element = document.createElement("div");
       }
       setColor(color) {
-        this.element.style = `width:100px; height: 100px; border-radius: 5px; box-shadow: 0 0 20px 0 rgba(0,0,0,.2); background: ${color}`;
+        this.element.style = `margin: 20px 0 20px 20px; width:100px; height: 100px; border-radius: 5px; box-shadow: 0 0 20px 0 rgba(0,0,0,.2); background: ${color}`;
       } 
     }
     let colorDiv = new ColorDiv();
