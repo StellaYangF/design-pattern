@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>color selector</title>
+</head>
+<body>
+  <input type="radio" value="red" name="color" checked>Red
+  <br>
+  <input type="radio" value="yellow" name="color">Yellow
+  <br>
+  <input type="radio" value="blue" name="color">Blue
+  <br>    
+
+  <button id='draw'>Draw</button>
+  <div id='contianer'></div>
+  
+  <script>
+    draw.addEventListener("click", drawDiv);
+
+    function drawDiv() {
+      let btns = [...document.getElementsByName("color")];
+      let btn = btns.find(item => item.checked);
+      let color = btn ? btn.value :"red";
+      let div = document.createElement("div");
+      div.style = `width:100px; height:100px; background-color:${color}`;
+      contianer.appendChild(div);
+    }
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <input type="radio" name="color" value="#fb9">Default
+  <input type="radio" name="color" value="red">Red
+  <input type="radio" name="color" value="yellow">Yellow
+  <input type="radio" name="color" value="blue">Blue
+
+  <button id='command'>Draw</button>
+
+  <div id='container'></div>
+
+  <script>
+    class ColorDiv {
+      constructor(){
+        this.element = document.createElement("div");
+      }
+      setColor(color) {
+        this.element.style = `width:100px; height: 100px; border-radius: 5px; box-shadow: 0 0 20px 0 rgba(0,0,0,.2); background: ${color}`;
+      } 
+    }
+    let colorDiv = new ColorDiv();
+    
+    command.addEventListener("click", draw);
+    
+    function draw() {
+      let btns, btn, color;
+      btns = [...document.getElementsByName("color")];
+      btn = btns.find(item => item.checked);
+      color = btn ? btn.value : "#fb9";
+      colorDiv.setColor(color);
+      container.appendChild(colorDiv.element);
+    }
+  </script>
+</body>
+</html>
