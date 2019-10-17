@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Command Design Counter</title>
+</head>
+<body>
+  <p id='number'>0</p>
+  <button id="addBtn">+</button>
+  <button id="undoBtn">undo</button>
+  <script>
+    class Receiver{
+      constructor(container) {
+        this.number = 0;
+        this.container = container;
+      }
+
+      add() {
+        debugger;
+        let container = this.container;
+        let oldVal = isNaN(container.innerHTML) ? 0 : parseInt(container.innerHTML);
+        this.number = oldVal++;
+        this.container.innerHTML = oldVal;
+      }
+
+      undo() {
+        this.container.innerHTML = this.number;
+      }
+    }
+
+    class AddCommand {
+      constructor(receiver) {
+        this.receiver = receiver;
+      }
+      execute() {
+        this.receiver.add();
+      }
+    }
+
+    class UndoCommand {
+      constructor(receiver) {
+        this.receiver = receiver;
+      }
+      execute() {
+        this.receiver.undo();
+      }
+    }
+
+
+    let receiver = new Receiver(number);
+    let addCommand = new AddCommand(receiver);
+    let undoCommand = new UndoCommand(receiver);
+
+    addBtn.addEventListener("click", () => addCommand.execute());
+    undoBtn.addEventListener("click", () => undoCommand.execute());
+  </script>
+</body>
+</html>
