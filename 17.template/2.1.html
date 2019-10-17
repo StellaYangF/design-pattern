@@ -9,7 +9,7 @@
 </head>
 <body>
   <button id='showModal'>Show modal</button>
-  <script src="./2.1.js"></script>
+  <script src="./2.1.compile.js"></script>
   <script>
     // let modal = new Modal({
     // let modal = new ModalOnlyContent({
@@ -19,7 +19,7 @@
       onConfirm: function() {alert('confirm')},
       onCancel: function() {alert('cancel')},
     });
-    showModal.addEventListener("click", () => {
+    showModal.addEventListener("click", function() {
       modal.show();
     });
   </script>
