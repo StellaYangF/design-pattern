@@ -4,9 +4,75 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>Command Design Counter Updated</title>
 </head>
 <body>
+  <p id="number">0</p>
+  <button id="addBtn">+</button>
+  <button id="undoBtn">undo</button>
+  <button id="redoBtn">redo</button>
   
+  <script>
+    class Receiver{
+      constructor(container) {
+        this.container = container;
+        this.history = [];
+        this.index = -1;
+      }
+
+      add() {
+        let count = this.container.innerHTML;
+        let oldVal = isNaN(count) ? 0 : parseInt(count);
+        this.history.push(++oldVal);
+        this.index = this.history.length -1;
+        this.container.innerHTML = this.history[this.index];
+      }
+
+      undo() {
+        this.container.innerHTML = this.index > 0 ? this.history[ --this.index ] : 0;
+      }
+
+      redo() {
+        let length = this.history.length;
+        this.container.innerHTML = this.index < length - 1 ? this.history[++this.index] : 0;
+      }
+    }
+
+    class AddCommand {
+      constructor(receiver) {
+        this.receiver = receiver
+      }
+      execute() {
+        this.receiver.add();
+      }
+    }
+
+    class UndoCommand {
+      constructor(receiver) {
+        this.receiver = receiver
+      }
+      execute() {
+        this.receiver.undo();
+      }
+    }
+
+    class RedoCommand {
+      constructor(receiver) {
+        this.receiver = receiver
+      }
+      execute() {
+        this.receiver.redo();
+      }
+    }
+
+    let receiver = new Receiver(number);
+    let addCommand = new AddCommand(receiver);
+    let undoCommand = new UndoCommand(receiver);
+    let redoCommand = new RedoCommand(receiver);
+
+    addBtn.addEventListener("click", () => addCommand.execute());
+    undoBtn.addEventListener("click", () => undoCommand.execute());
+    redoBtn.addEventListener("click", () => redoCommand.execute());
+  </script>
 </body>
 </html>
