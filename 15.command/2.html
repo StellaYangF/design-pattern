@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Counter one</title>
+</head>
+<body>
+  <p id="number">0</p>
+  <button id='addBtn'>+</button>
+  <button id='undoBtn'>undo</button>
+  <script>
+    let worker = {
+      oldVal: 0,
+      add () {
+        let oldVal = isNaN(number.innerHTML) ? 0 : parseInt(number.innerHTML);
+        worker.oldVal = oldVal;
+        number.innerHTML = oldVal+1;
+      },
+      undo () {
+        number.innerHTML = worker.oldVal;
+      }
+    }
+    class AddCommand{
+      constructor(reveiver) {
+        this.reveiver = reveiver;
+      }
+      execute() {
+        this.reveiver.add();
+      }
+    }
+    class UndoCommand{
+      constructor(reveiver) {
+        this.reveiver = reveiver;
+      }
+      execute() {
+        this.reveiver.undo();
+      }
+    }
+
+    let addCommand = new AddCommand(worker);
+    let undoCommand = new UndoCommand(worker);
+    addBtn.addEventListener("click", () => addCommand.execute());
+    undoBtn.addEventListener("click", () => undoCommand.execute());
+  </script>
+</body>
+</html>
