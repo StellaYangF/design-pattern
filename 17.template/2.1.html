@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Tempalte Design Pattern Modal</title>
+  <link rel="stylesheet" href="./2.1.css">
+</head>
+<body>
+  <button id='showModal'>Show modal</button>
+  <script src="./2.1.js"></script>
+  <script>
+    // let modal = new Modal({
+    // let modal = new ModalOnlyContent({
+    let modal = new ModalClose({
+      title: "Title",
+      content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium quam eum excepturi sapiente perferendis? Reprehenderit, accusantium perspiciatis illum aperiam quidem sint explicabo ea cum atque architecto, ut totam inventore delectus?Voluptate qui vel obcaecati saepe ducimus quidem eius eligendi nisi, quaerat adipisci? Repudiandae magnam et labore doloremque ad quisquam eos architecto, unde corrupti ea debitis dignissimos iusto omnis beatae minima.',
+      onConfirm: function() {alert('confirm')},
+      onCancel: function() {alert('cancel')},
+    });
+    showModal.addEventListener("click", () => {
+      modal.show();
+    });
+  </script>
+</body>
+</html>
