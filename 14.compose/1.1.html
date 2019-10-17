@@ -9,24 +9,49 @@
 <body>
   <div id='root'></div>
   <script>
+    function ReactElement(type, props) {
+      this.type = type;
+      this.props = props;
+    }
+
+    function createElement(type, props = null, ...children) {
+      return new ReactElement(type, { ...props, children: children.length === 1 ? children[0] : children })
+    }
+
     class React{
-      render(element, container) {
-       if (typeof element === "string") return document.appendChild(document.createTextNode(element));
-       let { type, props } = element;
-
+      static render(element, container) {
+        if (typeof element === "string") return container.appendChild(document.createTextNode(element));
+        let { type, props } = element;
+        let domElement = document.createElement(type);
+        for(let attr in props) {
+          if (attr === "children"){
+            // children 是数组
+            if (typeof props[attr] === "object") {
+              props[attr].forEach(item => {
+                if (typeof item === "object") {
+                  React.render(item, domElement);
+                } else {
+                  domElement.appendChild(document.createTextNode(item));
+                }
+              })
+            } else {
+              // children 是字符串
+              domElement.appendChild(document.createTextNode(props[attr]));
+            }
+          } else if (attr === "className") {
+            domElement.setAttribute('class', props[attr]);
+          } else {
+            domElement.setAttribute(attr, props[attr]);
+          }
+        }
+        container.appendChild(domElement);
       }
     }
 
-    class ReactElement {
-      constructor(type, props = [], ...children) {
-        this.type = type;
-        this.props = {...props, children: children.length == 1 ? children[0] : children };
-      }
-    }
-
-    let rootElement = new ReactElement("ul", null, new ReactElement("li", null, "tom"), new ReactElement("li", null, "jerry"));
+    let rootElement = createElement("ul", null, createElement("li", null, "tom"), createElement("li", null, "jerry"));
 
     React.render(rootElement, root);
+    // React.render("tom", root);
   </script>
 </body>
 </html>

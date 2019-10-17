@@ -23,8 +23,8 @@
       return new ReactElement(type, { ...props, children: children.length ==1 ? children[0] : children })
     }
 
-    let rootElement = createElement('div', null, 'hello', createElement('p', null, 'world', createElement('span', { className: "active" }, "bonjour!")));
-    
+    // let rootElement = createElement('div', null, 'hello', createElement('p', null, 'world', createElement('span', { className: "active" }, "bonjour!")));
+    let rootElement = createElement("ul", null, createElement("li", null, "tom"), createElement("li", null, "jerry"));
     function render(element, contianer) {
       if (typeof element == 'string') return document.appendChild(document.createTextNode(element));
       let { type, props } = element;
